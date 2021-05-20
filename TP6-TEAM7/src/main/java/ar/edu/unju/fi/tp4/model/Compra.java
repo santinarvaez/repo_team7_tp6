@@ -20,28 +20,26 @@ public class Compra {
 	
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name="compra_id")
+		@Column(name="compra_id", nullable = true)
 		private int id;
+		
+		@Column(name="compra_cant", nullable = true)
+		private int cantidad;
+		
+		@Column(name="compra_total", nullable = true)
+		private double total;
 		
 		@Autowired
 		@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name="prod_codigo")
+		@JoinColumn(name="prod_codigo", nullable = true)
 		private Producto producto;
 		
-		@Column(name="compra_cant")
-		private int cantidad;
-		
-		@Column(name="compra_total")
-		private double total;
-		
-	
 		
 		//CONSTRUCTORES
 		
 		public Compra() {
 			// TODO Auto-generated constructor stub
 		}
-		
 		
 		/**
 		 * 
@@ -97,7 +95,5 @@ public class Compra {
 			total=pre*cant;
 			return total;
 		}
-		
-		
-		
+			
 }
