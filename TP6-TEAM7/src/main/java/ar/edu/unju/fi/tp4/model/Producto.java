@@ -6,46 +6,44 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import org.springframework.stereotype.Component;
 
-@Table(name="PRODUCTOS")
-@Entity
 @Component
+@Entity
+@Table(name="PRODUCTOS")
 public class Producto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "prod_codigo", nullable = false)
+	@Column(name="prod_codigo", nullable = false)
 	private int codigo;
 	
-	@Column(name = "prod_stock", nullable = false)
-	private int stock;
-	
-	@Column(name = "prod_nombre")
+	@Column(name="prod_nombre")
 	private String nombre;
 	
-	@Column(name = "prod_marca")
+	@Column(name="prod_precio")
+	private double precio;
+	
+	@Column(name="prod_marca")
 	private String marca;
 	
-	@Column(name = "prod_precio", nullable = false)
-	private Double precio;
+	@Column(name="prod_stock")
+	private int stock;
+	
+	@OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+	private List<Compra> compras = new ArrayList<>();
 	
 	
-	public Producto( String nombre, int codigo, double precio, String marca, int stock, Long id) {
-		this.nombre = nombre;
+	public Producto(Long id, int codigo, String nombre, double precio, String marca, int stock) {
+		super();
 		this.codigo = codigo;
+		this.nombre = nombre;
 		this.precio = precio;
 		this.marca = marca;
 		this.stock = stock;
-		this.id = id;
 	}
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -77,12 +75,7 @@ public class Producto {
 		this.precio = precio;
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 	
 	public Producto() {
 		super();
