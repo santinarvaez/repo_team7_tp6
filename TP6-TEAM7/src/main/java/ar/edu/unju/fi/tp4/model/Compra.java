@@ -12,92 +12,73 @@ import javax.persistence.Table;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
-@Table(name="COMPRAS")
-@Entity
 @Component
+@Entity
+@Table(name = "COMPRAS")
 public class Compra {
 	
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		@Column(name="compra_id")
-		private int id;
-		
-		@Autowired
-		@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name="prod_codigo")
-		private Producto producto;
-		
-		@Column(name="compra_cant")
-		private int cantidad;
-		
-		@Column(name="compra_total")
-		private double total;
-		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "comp_codigo")
+	private Long codigo;
 	
-		
-		//CONSTRUCTORES
-		
-		public Compra() {
-			// TODO Auto-generated constructor stub
-		}
-		
-		
-		/**
-		 * 
-		 * @param id
-		 * @param producto
-		 * @param cantidad
-		 * @param total
-		 */
-		
-		public Compra(int id, Producto producto, int cantidad, double total) {
-			super();
-			this.id = id;
-			this.producto = producto;
-			this.cantidad = cantidad;
-		}
-		
-		//GETTERS AND SETTERS
-		
-		public int getId() {
-			return id;
-		}
+	@Column(name = "comp_cantidad")
+	private int cantidad;
+	
+	@Column(name = "comp_total")
+	private double total;
+	
+	@Autowired
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "prod_codigo")
+	private Producto producto;
+	
+	public Compra() {
+		super();
+	}
 
-		public void setId(int id) {
-			this.id = id;
-		}
+	public Compra(Long codigo, Producto producto, int cantidad, double total) {
+		super();
+		this.codigo = codigo;
+		this.producto = producto;
+		this.cantidad = cantidad;
+		this.total = total;
+	}
 
-		public Producto getProducto() {
-			return producto;
-		}
+	public Long getCodigo() {
+		return codigo;
+	}
 
-		public void setProducto(Producto producto) {
-			this.producto = producto;
-		}
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
 
-		public int getCantidad() {
-			return cantidad;
-		}
+	public Producto getProducto() {
+		return producto;
+	}
 
-		public void setCantidad(int cantidad) {
-			this.cantidad = cantidad;
-		}
+	public void setProducto(Producto producto) {
+		this.producto = producto;
+	}
+
+	public int getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public double getTotal() {
+		double total = this.cantidad*this.producto.getPrecio();
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
 
 
-		public void setTotal(double total) {
-		}
-		
-		
-		public Double getTotal() {		
-			int  cant;
-			double pre , total;
-			pre=this.producto.getPrecio();
-			cant=this.cantidad;
-			total=pre*cant;
-			return total;
-		}
-		
-		
-		
+	
 }
+
