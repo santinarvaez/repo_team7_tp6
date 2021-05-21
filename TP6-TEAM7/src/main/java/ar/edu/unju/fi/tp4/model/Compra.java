@@ -37,6 +37,7 @@ public class Compra {
 		super();
 	}
 
+
 	public Compra(Long codigo, Producto producto, int cantidad, double total) {
 		super();
 		this.codigo = codigo;
@@ -78,7 +79,5 @@ public class Compra {
 		this.total = total;
 	}
 
-
-	
 }
 
